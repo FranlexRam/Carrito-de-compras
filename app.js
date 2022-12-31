@@ -19,21 +19,16 @@ console.log(productsArray);
 productsArray.forEach(product => {
     productContainer.innerHTML += `
     <div class="shop-item">
-        <span class="shop-item-title">T-Shirt</span>
-        <img class="shop-item-image" src="./Images/shirt.jpg">
-        <div class="shop-item-details">
-            <span class="shop-item-price">$19.99</span>
-            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-        </div>
+    <span class="shop-item-title">${product.title}</span>
+    <img class="shop-item-image" src="${product.images[0]}">
+    <div class="shop-item-details">
+    <span class="shop-item-price">$${product.price}</span>
+    <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
     </div>
-
-    <div class="shop-item">
-        <span class="shop-item-title">Coffee Cup</span>
-        <img class="shop-item-image" src="./Images/coffee.jpg">
-        <div class="shop-item-details">
-            <span class="shop-item-price">$6.99</span>
-            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-        </div>
     </div>
     ` 
 });
+
+let addBtns = document.querySelectorAll('.shop-item-button');
+
+console.log(addBtns);
