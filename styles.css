@@ -116,23 +116,25 @@ html, body {
     width: 100%;
     text-align: center;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1em;
     color: #333;
     margin-bottom: 15px;
 }
 
 .shop-item-image {
     height: 250px;
+    max-width: 220px;
 }
 
 .shop-item-details {
     display: flex;
     align-items: center;
     padding: 5px;
+    justify-content: center;
 }
 
 .shop-item-price {
-    flex-grow: 1;
+    padding: 10px;
     color: #333;
 }
 

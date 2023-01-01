@@ -8,11 +8,13 @@ let total = 0;
 let productContainer = document.querySelector('.shop-items');
 
 //Peticion de productos al servidor
-let res = await fetch('https://api.escuelajs.co/api/v1/products');
+let res = await fetch('https://fakestoreapi.com/products/1');
 let data = await res.json();
 
+console.log('https://fakestoreapi.com/products/1');
+
 //Limitacion de 4 productos de la API
-let productsArray = data.slice(1,5);
+let productsArray = data.slice(1,1);
 console.log(productsArray);
 
 //Imprimir productos en pantalla
@@ -20,7 +22,7 @@ productsArray.forEach(product => {
     productContainer.innerHTML += `
     <div class="shop-item">
         <span class="shop-item-title">${product.title}</span>
-        <img class="shop-item-image" src="${product.images[0]}">
+        <img class="shop-item-image" src="${product.images}">
         <div class="shop-item-details">
             <span class="shop-item-price">$${product.price}</span>
             <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
