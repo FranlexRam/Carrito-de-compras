@@ -53,12 +53,31 @@ addBtns.forEach(btn => {
 
         //Con el ID encontrar el objeto actual
         let actualProduct = productsArray.find(item => item.id == actualID);
-        actualProduct.quantity = 1;
-        console.log(actualProduct);
-        //preguntar si el producto que estoy agregando ya existe
-        
 
-        shoppingCartArray.push(actualProduct);
+        if (actualProduct.quantity === undefined) {
+            actualProduct.quantity = 1;            
+        }
+
+        
+        console.log(actualProduct.id);
+
+        //preguntar si el producto que estoy agregando ya existe
+
+
+        let existe = false;
+        shoppingCartArray.forEach (libro => {
+            if (actualID == libro.id) {
+                existe = true;
+            }
+        });
+
+        if (existe) {
+            actualProduct.quantity++;
+        } else {
+            shoppingCartArray.push(actualProduct);            
+        }
+        
+        
         console.log(shoppingCartArray);
 
 
@@ -66,10 +85,7 @@ addBtns.forEach(btn => {
 
 
         //Agregar el producto al arreglo del carro
-
-
-
-
+        cartContainer.innerHTML = '';
         cartContainer.innerHTML += `
         <div class="cart-row">
             <div class="cart-item cart-column">
