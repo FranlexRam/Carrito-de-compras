@@ -124,6 +124,13 @@ html, body {
 .shop-item-image {
     height: 250px;
     max-width: 220px;
+    object-fit: cover;
+    transition: all .5s;
+    padding: 15px;
+}
+
+.shop-item-image:hover {
+    transform: scale(1.2);
 }
 
 .shop-item-details {
