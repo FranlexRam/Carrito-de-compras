@@ -44,7 +44,7 @@ addBtns.forEach(btn => {
     // console.log('Hiciste click');
 
 
-        //AGREGAR PRODUCTOS AL CARRITO
+    //AGREGAR PRODUCTOS AL CARRITO
 
         
         //Buscar el ID del producto
@@ -57,9 +57,6 @@ addBtns.forEach(btn => {
         if (actualProduct.quantity === undefined) {
             actualProduct.quantity = 1;            
         }
-
-        
-        console.log(actualProduct.id);
 
         //preguntar si el producto que estoy agregando ya existe
 
@@ -81,26 +78,13 @@ addBtns.forEach(btn => {
         console.log(shoppingCartArray);
 
 
-
-
-
-        //Agregar el producto al arreglo del carro
-        cartContainer.innerHTML = '';
-        cartContainer.innerHTML += `
-        <div class="cart-row">
-            <div class="cart-item cart-column">
-                <img class="cart-item-image" src="${actualProduct.image}" height="100">
-                <span class="cart-item-title">${actualProduct.title}</span>
-            </div>
-            <span class="cart-price cart-column">$${actualProduct.price}</span>
-            <div class="cart-quantity cart-column">
-                <input class="cart-quantity-input" min="1" type="number" value="${actualProduct.quantity}">
-                <button class="btn btn-danger" type="button">REMOVE</button>
-            </div>
-        </div>`
+        //Dibujar en el DOM el arreglo de compras actualizado
+        drawItems();        
 
         //Actualizar el valor del TOTAL
         getTotal();
+
+        updateNumberOfItems();
     });
 });
 
@@ -110,7 +94,51 @@ function getTotal(){
         sumTotal = sum + item.quantity * item.price;
         return sumTotal;
     } , 0)
-    totalElement.innerText = `$${total}`
+    totalElement.innerText = `$${total.toFixed(2)}`
 }
 
+//Modularizando
+
+function drawItems() {
+    cartContainer.innerHTML = '';
+        shoppingCartArray.forEach(item => {
+            cartContainer.innerHTML += `
+            <div class="cart-row">
+                <div class="cart-item cart-column">
+                    <img class="cart-item-image" src="${item.image}" height="100">
+                    <span class="cart-item-title">${item.title}</span>
+                </div>
+                <span class="cart-price cart-column">$${item.price}</span>
+                <div class="cart-quantity cart-column">
+                    <input class="cart-quantity-input" min="1" type="number" value="${item.quantity}">
+                    <button class="btn btn-danger" type="button">REMOVE</button>
+                </div>
+            </div>`
+        });
+}
+
+
+function updateNumberOfItems () {
+    let inputNumber = document.querySelectorAll('.cart-quantity-input');
+    inputNumber = [...inputNumber]; //Transformando el NodeList en un Array usando el spread operator [...]
+
+    inputNumber.forEach(item => {
+        item.addEventListener('click', () => {
+            //Conseguir titulo del producto
+            let actualProductTitle = event.target.parentElement.parentElement.childNodes[1].innerText;
+            let actualProductQuantity = parseInt(event.target.value);
+            console.log(actualProductQuantity);
+
+            //Buscar objeto con ese titulo
+            let actualProductObject = shoppingCartArray.find(item => item.title == actualProductTitle);
+            console.log(actualProductObject);
+
+            //Actualizar el numero de la quantity
+            actualProductObject.quantity = actualProductQuantity;
+
+            //Actualizar el precio total
+            getTotal();
+        });
+    });
+}
 
