@@ -10,7 +10,7 @@ let res = await fetch('https://fakestoreapi.com/products/');
 let data = await res.json();
 
 //Limitamos a 4 productos en la API
-let productsArray = data.slice(1,7);
+let productsArray = data.slice(2,5);
 // console.log(productsArray);
 
 //Imprimir productos en pantalla
@@ -85,6 +85,8 @@ addBtns.forEach(btn => {
         getTotal();
 
         updateNumberOfItems();
+
+        removeItems();
     });
 });
 
@@ -115,6 +117,8 @@ function drawItems() {
                 </div>
             </div>`
         });
+
+        removeItems();
 }
 
 
@@ -141,4 +145,29 @@ function updateNumberOfItems () {
         });
     });
 }
+
+
+function removeItems() {
+    let removeBtns = document.querySelectorAll('.btn-danger');
+    removeBtns = [...removeBtns]; //Transformando el nodeList en un Array
+    removeBtns.forEach(btn => {
+        btn.addEventListener('click', event => {
+            //Conseguir el titulo del producto
+            let actualProductTitle = event.target.parentElement.parentElement.childNodes[1].innerText;
+
+            //Buscar objeto con ese titulo
+            let actualProductObject = shoppingCartArray.find(item => item.title == actualProductTitle);
+
+            //Remover el arreglo de productos del cart
+            shoppingCartArray = shoppingCartArray.filter(item => item != actualProductObject);
+            console.log(shoppingCartArray);
+
+            //Actualizar el precio total
+            drawItems();        
+            getTotal();
+            updateNumberOfItems();
+        });
+    });
+}
+
 
